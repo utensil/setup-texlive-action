@@ -116,7 +116,7 @@ export async function acquire(options: DownloadOptions): Promise<InstallTL> {
   const dir = await download(repository);
   const remoteVersion = await checkVersion(dir);
   await saveCache(dir, remoteVersion);
-  if (version !== undefined && version !== remoteVersion) {
+  if (version !== undefined && remoteVersion < version) {
     throw new InstallTLError(
       `Unexpected install-tl version: ${remoteVersion}`,
       { repository, version, remoteVersion },
